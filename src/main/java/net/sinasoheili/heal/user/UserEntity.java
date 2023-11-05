@@ -21,11 +21,12 @@ public class UserEntity {
     private String phoneNumber;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(nullable = false)
     private int age;
 
     @Column(nullable = false)
-    private float height;
+    private int height;
 }
