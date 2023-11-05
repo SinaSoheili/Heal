@@ -2,6 +2,9 @@ package net.sinasoheili.heal.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import net.sinasoheili.heal.drug.DrugEntity;
+
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -29,4 +32,7 @@ public class UserEntity {
 
     @Column(nullable = false)
     private int height;
+
+    @OneToMany(mappedBy = DrugEntity.USER_PROP)
+    private List<DrugEntity> drugs;
 }
