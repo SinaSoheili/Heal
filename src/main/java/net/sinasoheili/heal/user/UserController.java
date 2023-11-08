@@ -1,20 +1,18 @@
 package net.sinasoheili.heal.user;
 
 import jakarta.validation.Valid;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
 import net.sinasoheili.heal.utils.EntityState;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Path("/user")
+@RequestMapping("${heal.api.prefix}/user")
 @Validated
 public interface UserController {
 
-    @POST
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     @Validated(EntityState.Create.class)
-    UserDto registerUser(@Valid UserDto userDto);
+    UserDto registerUser(@Valid @RequestBody UserDto userDto);
 
 }
