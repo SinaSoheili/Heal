@@ -26,6 +26,18 @@ public class UserService {
         userRepository.persistUser(userEntity);
     }
 
+    @Transactional(readOnly = true)
+    public UserDto loadUserById(String userId) {
+        return userEntityToUserDto(loadUserByIdInternal(userId));
+    }
+
+    @Transactional(readOnly = true)
+    public UserEntity loadUserByIdInternal(String userId) {
+        return userRepository.loadUserById(userId).orElseThrow(
+                () -> {throw new UserNotFoundException(userId);}
+        );
+    }
+
     private UserEntity userDtoToUserEntity(UserDto userDto) {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDto, userEntity);
