@@ -16,12 +16,12 @@ public class UserService {
     @Transactional
     public UserDto registerUser(UserDto userDto) {
         UserEntity userEntity = userDtoToUserEntity(userDto);
-        registerUser(userEntity);
+        registerUserInternal(userEntity);
         return userEntityToUserDto(userEntity);
     }
 
     @Transactional
-    public void registerUser(UserEntity userEntity) {
+    public void registerUserInternal(UserEntity userEntity) {
         log.info("try to register user with {} info", userEntity.toString());
         userRepository.persistUser(userEntity);
     }

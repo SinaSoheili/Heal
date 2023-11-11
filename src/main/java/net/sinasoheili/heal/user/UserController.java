@@ -10,12 +10,19 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public interface UserController {
 
+    /**
+     * Register new user
+     *
+     * @param userDto
+     * @return registered user info with new user identifier
+     */
     @PostMapping
     @Validated(EntityState.Create.class)
     UserDto registerUser(@Valid @RequestBody UserDto userDto);
 
     /**
      * Load user with specified id
+     *
      * @param userId unique user identifier
      * @return {@link UserDto} user information with specified userId.
      * @throws UserNotFoundException Throw exception if did not find any user with specified userId and translate to
