@@ -1,12 +1,16 @@
 package net.sinasoheili.heal.drug;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.sinasoheili.heal.user.UserEntity;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "drug")
-@Data
 public class DrugEntity {
 
     public static final String USER_PROP = "user";
