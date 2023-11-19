@@ -1,7 +1,6 @@
 package net.sinasoheili.heal.drug;
 
 import lombok.RequiredArgsConstructor;
-import net.sinasoheili.heal.user.UserEntity;
 import net.sinasoheili.heal.user.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
