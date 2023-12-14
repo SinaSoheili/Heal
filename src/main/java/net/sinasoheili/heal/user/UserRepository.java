@@ -2,6 +2,7 @@ package net.sinasoheili.heal.user;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaDelete;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Repository
 public class UserRepository {
 
-    @PersistenceContext()
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public void persistUser(UserEntity userEntity) {
@@ -25,5 +26,10 @@ public class UserRepository {
         Optional<UserEntity> userEntityOptional = Optional.ofNullable(entityManager.find(UserEntity.class, userId));
         log.info("user with {} id {} db", userId, userEntityOptional.isPresent() ? "loaded from" : "not found in");
         return userEntityOptional;
+    }
+
+    public int deleteAll() {
+        CriteriaDelete<UserEntity> userCriteriaDelete = entityManager.getCriteriaBuilder().createCriteriaDelete(UserEntity.class);
+        return entityManager.createQuery(userCriteriaDelete).executeUpdate();
     }
 }

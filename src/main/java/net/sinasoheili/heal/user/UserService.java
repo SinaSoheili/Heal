@@ -38,6 +38,11 @@ public class UserService {
         );
     }
 
+    @Transactional
+    public int deleteAll() {
+        return userRepository.deleteAll();
+    }
+
     private UserEntity userDtoToUserEntity(UserDto userDto) {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDto, userEntity);
