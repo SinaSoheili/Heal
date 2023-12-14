@@ -28,4 +28,9 @@ public class UserTestUtils {
     public UserDto persistUserDto(UserDto userDto) {
         return userService.registerUser(userDto);
     }
+
+    @Transactional
+    public int clearUserTable() {
+        return userService.deleteAll();
+    }
 }
