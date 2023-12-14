@@ -2,6 +2,7 @@ package net.sinasoheili.heal.drug;
 
 import net.sinasoheili.heal.user.UserDto;
 import net.sinasoheili.heal.utils.UserTestUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,11 @@ class DrugIntegrationTest {
 
     @Autowired
     private UserTestUtils userTestUtils;
+
+    @BeforeEach
+    void clearDataBase() {
+        userTestUtils.clearUserTable();
+    }
 
     @Test
     void When_RegisterNewDrug_Expect_AssignIdToRegisteredDrug() {
