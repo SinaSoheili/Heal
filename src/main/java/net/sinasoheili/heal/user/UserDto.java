@@ -12,6 +12,12 @@ public class UserDto {
     private String id;
 
     @NotBlank
+    private String username;
+
+    @NotBlank(groups = EntityState.Create.class)
+    private String password;
+
+    @NotBlank
     private String firstName;
 
     @NotBlank

@@ -3,15 +3,20 @@ package net.sinasoheili.heal.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class UserService implements UserDetailsManager {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public UserDto registerUser(UserDto userDto) {
@@ -23,6 +28,7 @@ public class UserService {
     @Transactional
     public void registerUserInternal(UserEntity userEntity) {
         log.info("try to register user with {} info", userEntity.toString());
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         userRepository.persistUser(userEntity);
     }
 
@@ -41,6 +47,37 @@ public class UserService {
     @Transactional
     public int deleteAll() {
         return userRepository.deleteAll();
+    }
+
+    @Override
+    public void createUser(UserDetails user) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void updateUser(UserDetails user) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteUser(String username) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void changePassword(String oldPassword, String newPassword) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean userExists(String username) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return loadUserByIdInternal(username);
     }
 
     private UserEntity userDtoToUserEntity(UserDto userDto) {
